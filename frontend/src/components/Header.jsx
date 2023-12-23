@@ -1,13 +1,19 @@
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom";
 
 
-const Header = () => {
+const Header = ({isAuthenticated}) => {
   return (
     <header className='w-full h-auto flex justify-between items-center px-20 shadow-sm bg-white z-50 sticky top-0 left-0'>
       <h1 className='text-3xl cursor-pointer py-2 '> Link Life</h1>
 
-      <nav>
-        <Link to={'/app/signin'} className='capitalize text-lg border-white border-b-2 cursor-pointer hover:border-b-2 hover:border-red-400 duration-300 ease-in-ou hover:tracking-widest'>login</Link>
+      <nav className="flex flex-row gap-6">
+        {!isAuthenticated && <Link to={'/'} className='capitalize text-lg border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>login</Link>}
+
+        {isAuthenticated && (<><NavLink className='capitalize text-lg border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>About</NavLink>
+        <NavLink className='capitalize text-lg border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Feedback</NavLink>
+        <NavLink className='capitalize text-lg border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Change password</NavLink>
+        <NavLink to={'/api/profile'} className='capitalize text-lg border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>LogOut</NavLink>
+        <NavLink className='capitalize text-lg border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Blood donation facts</NavLink></>)}
       </nav>
     </header>
   )
