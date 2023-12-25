@@ -29,13 +29,14 @@ const SignIn = ({setIsAuthenticated}) => {
 
         await Axios.post(`${BACKEND_API}/api/signin`,values)
           .then((res)=>{
+            // console.log(res.data);
             localStorage.setItem("user",JSON.stringify(res.data));
+            // localStorage.setItem("user",res.data);
+            setIsAuthenticated(true)
+            alert(" User Login successfully")
+            navigation('/dashBord')
+            // action.resetForm()
           })
-
-        alert(" User Login successfully")
-        action.resetForm()
-        setIsAuthenticated(true)
-        navigation('/dashBord')
 
         // localStorage.setItem('users',res.data)
         

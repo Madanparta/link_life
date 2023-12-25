@@ -1,6 +1,9 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { donorValidation } from '../schema';
+import { BACKEND_API } from "../utils/credentials";
+import { token } from '../utils/credentials';
+import axios from 'axios';
 
 
 const initialValues = {
@@ -14,15 +17,24 @@ const Donor = () => {
         initialValues:initialValues,
         validationSchema:donorValidation,
         onSubmit: async(values,action)=>{
-            console.log(values)
+            // console.log(values)
+
             try {
-                
+                const req = await fetch(`${BACKEND_API}/dashBord/donor`,{method: 'POST',headers:{'Content-Type': 'application/json','x-access-token':token},body: JSON.stringify(values),})
+
+                const data = await req.json();
+                if(data){
+                    alert("successfully added.")
+                    action.resetForm()
+                }
+
             } catch (error) {
                 console.error('Error during Donor:', error);
                 alert('Error during Donor:', error);
             }
         }
-    })
+    });
+    
   return (
     <section className='w-full h-full flex justify-center items-center'>
         <section className='h-full w-[80%] m-auto mt-[8vh] flex justify-center'>
