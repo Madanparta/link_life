@@ -1,9 +1,10 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { donorValidation } from '../schema';
+import { IoArrowUndo } from "react-icons/io5";
 import { BACKEND_API } from "../utils/credentials";
 import { token } from '../utils/credentials';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const initialValues = {
@@ -36,13 +37,17 @@ const Donor = () => {
     });
     
   return (
-    <section className='w-full h-full flex justify-center items-center'>
-        <section className='h-full w-[80%] m-auto mt-[8vh] flex justify-center'>
+    <section className='w-full h-full flex justify-center items-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r'>
+        <section className='h-[86.3vh] w-[80%] m-auto mt-[8vh] flex justify-center relative'>
 
-            <div className='p-10 shadow-sm hover:shadow-lg'>
-                <h2 className='text-2xl text-red-600 font-bold my-10'>Blood Donation Information 🩸</h2>
+        <div className='w-fit text-start absolute top-0 left-0'>
+          <Link className='w-full rounded-md  text-lg tracking-wider font-semibold bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 active:bg-gray-900 text-white shadow-md px-2 py-1.5'><IoArrowUndo className="inline"/> back to dashBord</Link>
+        </div>
 
-                <form className='w-full mx-5' onSubmit={handleSubmit}>
+            <div className='p-10 shadow-lg shadow-black bg-white h-fit rounded-sm'>
+                <h2 className='text-2xl text-red-600 font-bold my-10'>Online Donation Form 🩸</h2>
+
+                <form className='w-full mx-1' onSubmit={handleSubmit}>
                     {/* donation date */}
                     <div className='w-full my-10'>
                         <label htmlFor='donationDate'>

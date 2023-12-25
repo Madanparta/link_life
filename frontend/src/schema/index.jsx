@@ -26,6 +26,12 @@ export const donorValidation = Yup.object({
     donationQuantity:Yup.string().required('Quantity required'),
 });
 
+export const bloodBankInputDataValidation = Yup.object({
+    bloodGroup:Yup.string().required("Please enter BloodGroup"),
+    quantityAvailable:Yup.string().required('Quantity required'),
+    description:Yup.string().required('Please enter information about in above values'),
+});
+
 
 export const userEditingValidation = Yup.object({
     username: Yup.string().required('Username is required'),
