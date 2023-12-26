@@ -3,7 +3,8 @@ const dashBord = express();
 require('dotenv').config();
 const Donor = require('../models/donorModels');
 const Authentication = require('../middleware/autherization');
-const User = require('../models/userModels')
+const User = require('../models/userModels');
+const BloodBanker = require('../models/bloodBankModels');
 
 
 dashBord.use(Authentication)
@@ -24,12 +25,30 @@ dashBord.get('/',async(req,res)=>{
     }
 })
 
+// Donor router..
 dashBord.post('/donor',async(req,res)=>{
     console.log(req.user)
     try {
         const user = await Donor.findOne({user:req.user})
         if(!user){
             await Donor.create({user:req.user,...req.body});
+            res.status(201).json({message:"Order successfully created"})
+        }else{
+            res.status(404).json({ error: 'user alredy added the details' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        // console.log(error)
+    }
+});
+
+// bloodbanker router..
+dashBord.post('/bloodBanker',async(req,res)=>{
+    // console.log(req.user)
+    try {
+        const user = await BloodBanker.findOne({user:req.user})
+        if(user){
+            await BloodBanker.create({user:req.user,...req.body});
             res.status(201).json({message:"Order successfully created"})
         }else{
             res.status(404).json({ error: 'user alredy added the details' });

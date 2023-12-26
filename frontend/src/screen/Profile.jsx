@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import EditUser from './EditUser';
+import {userData} from '../utils/credentials';
 
 
 const Profile = ({setIsAuthenticated}) => {
   const navigate = useNavigate(); 
   const [isEditing,setIsEditing]=useState(false);
-  const { username,email,phone_number,city,state,blood_group,role,_id } = JSON.parse(localStorage.getItem("user"));
+  const { username,email,phone_number,city,state,blood_group,role,_id } = userData;
 
-  console.log(_id)
+  // console.log(_id)
    
   const onLogout = () => {
     navigate('/')

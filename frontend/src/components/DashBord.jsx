@@ -1,7 +1,6 @@
-import { useCallback, useEffect } from 'react';
-import Donor from '../screen/Donor';
+import { useEffect } from 'react';
+// import Donor from '../screen/Donor';
 import {useNavigate,Outlet} from 'react-router-dom';
-import axios from 'axios';
 import { BACKEND_API } from "../utils/credentials";
 
 const DashBord = () => {
@@ -16,7 +15,15 @@ const DashBord = () => {
       const data = await req.json();
       if(data){
         alert(" successfully to dashbord")
-        navigation('donor')
+        if(role === 'donor'){
+          navigation('donor')
+        }else if(role === 'blodoBank'){
+          navigation('bloodBanker')
+        }else if(role === 'receiver'){
+          navigation('/dashBord')
+        }else{
+          navigation('admin')
+        }
       }
 
     } catch (error) {
@@ -36,9 +43,10 @@ const DashBord = () => {
 
   return (
     <>
-      {
-        role === "donor" && <Outlet/>
-      }
+    <Outlet/>
+      {/* {
+        role === "donor" && 
+      } */}
     </>
   )
 }

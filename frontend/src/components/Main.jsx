@@ -29,8 +29,8 @@ const Main = ({isAuthenticated, setIsAuthenticated}) => {
       {/* <Route path='api/recDash' element={<PrivateRouter isAuthenticated={isAuthenticated}/>}> */}
         <Route path='/dashBord' element={<DashBord />}>
           <Route path='donor' element={<Donor/>}/>
+          <Route path='bloodBanker' element={<BloodBank/>}/>
         </Route>
-        <Route path='/bloodBanker' element={<BloodBank/>}/>
       {/* </Route> */}
 
       <Route path='/about' element={<About/>}/>

@@ -2,6 +2,7 @@ import { useFormik } from "formik";
 import { IoArrowUndo } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { bloodBankInputDataValidation } from "../schema";
+import { BACKEND_API, token } from "../utils/credentials";
 
 const initialValues = {
   bloodGroup:'',
@@ -14,9 +15,15 @@ const BloodBank = () => {
     initialValues:initialValues,
     validationSchema:bloodBankInputDataValidation,
     onSubmit: async(values,action)=>{
-      console.log(values)
+      // console.log(values)
       try {
-        
+        const req = await fetch(`${BACKEND_API}/dashBord/bloodBanker`,{method:'POST',headers:{'Content-Type':'application/json','x-access-token':token},body:JSON.stringify(values),})
+        const data = await req.json();
+        console.log(data);
+        if(data){
+          alert('successfully added')
+          action.resetForm()
+        }
       } catch (error) {
         console.error('Error during BloodBank:', error);
         alert('Error during BloodBank:', error);

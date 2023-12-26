@@ -45,7 +45,8 @@ const usersSchema = new mongoose.Schema({
       blood_group: {
         type: String,
         // Example: enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
-        required: true
+        required: true,
+        set:(value)=>value.toUpperCase(),
       },
       role: {
         type: String,
