@@ -12,6 +12,7 @@ import Feedback from '../screen/Feedback';
 import BloodDonationFacts from '../screen/BloodDonationFacts';
 import Donor from '../screen/Donor';
 import BloodBank from '../screen/BloodBank';
+import Users from '../screen/Users';
 
 const Main = ({isAuthenticated, setIsAuthenticated}) => {
   return (
@@ -32,6 +33,8 @@ const Main = ({isAuthenticated, setIsAuthenticated}) => {
           <Route path='bloodBanker' element={<BloodBank/>}/>
         </Route>
       {/* </Route> */}
+
+      <Route path='/users' element={<Users/>}/>
 
       <Route path='/about' element={<About/>}/>
       <Route path='/feedback' element={<Feedback/>}/>

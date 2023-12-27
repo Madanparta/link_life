@@ -3,9 +3,10 @@ const app = express();
 const dotenv = require('dotenv').config();
 const connectDB = require('./config/db');
 const bodyParser = require('body-parser');
-const userRegst = require('./data/userRegst');
-const userLog = require('./data/userLog');
-const dashBord = require('./data/dashBord');
+const userRegst = require('./router/userRegst');
+const userLog = require('./router/userLog');
+const dashBord = require('./router/dashBord');
+const getUsers = require('./router/getUsers');
 const cors = require('cors');
 const PORT = process.env.PORT || 5000;
 
@@ -25,5 +26,6 @@ app.get('/',(req,res)=>{
 app.use('/api',userRegst);
 app.use('/api',userLog);
 app.use('/dashBord',dashBord);
+app.use('/api',getUsers);
 
 app.listen(PORT,()=>console.log(`Backend server run with port ${PORT}`));

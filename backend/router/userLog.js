@@ -88,4 +88,20 @@ userLog.put('/edit/:id',asyncHandler(async(req,res)=>{
 
 
 
+// get..
+
+// userget.get('/getusers',asyncHandler(async(req,res)=>{
+//     try {
+//         let data = await User.find({});
+        
+//         if(data){
+//             return res.status(200).json({message:"success data getting."})
+//         }
+        
+//     } catch (error) {
+//         res.status(500).json({ error: 'Internal Server Error' });
+//         console.log(error)
+//     }
+// }));
+
 module.exports = userLog;

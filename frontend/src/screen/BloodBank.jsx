@@ -35,7 +35,7 @@ const BloodBank = () => {
       <section className="h-[86.3vh] w-[80%] m-auto mt-[8vh] flex justify-center relative">
 
         <div className='w-fit text-start absolute top-0 left-0'>
-          <Link className='w-full rounded-md  text-lg tracking-wider font-semibold bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 active:bg-gray-900 text-white shadow-md px-2 py-1.5'><IoArrowUndo className="inline"/> back to dashBord</Link>
+          <Link to={'/users'} className='w-full rounded-md  text-lg tracking-wider font-semibold bg-gray-500 hover:bg-gray-600 focus:bg-gray-700 active:bg-gray-900 text-white shadow-md px-2 py-1.5'><IoArrowUndo className="inline"/> back to dashBord</Link>
         </div>
 
         <div className="p-10 shadow-lg shadow-black bg-white h-fit rounded-sm">

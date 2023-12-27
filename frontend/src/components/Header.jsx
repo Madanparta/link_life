@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 const Header = ({isAuthenticated}) => {
  
   return (
-    <header className='w-full h-auto flex justify-between items-center px-20 shadow-sm bg-white z-50 sticky top-0 left-0'>
+    <header className='w-full h-auto flex justify-between items-center px-20 shadow-sm shadow-black bg-white z-50 sticky top-0 left-0'>
       <h1 className='text-3xl cursor-pointer py-2 '> Link Life</h1>
 
       <nav className="flex flex-row gap-6">
