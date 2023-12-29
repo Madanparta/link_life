@@ -1,5 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import signUp_img from '../stocks/LOGIN_LOGO.jpg';
+import toast from 'react-hot-toast';
+
+import GLOBE from 'vanta/dist/vanta.globe.min';
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
@@ -33,69 +36,95 @@ const SignIn = () => {
             if(res.status === 200){
               localStorage.setItem("user",JSON.stringify(res.data));
               navigation('/users')
-              alert(" User Login successfully")
+              toast.success("successfully login")
               action.resetForm()
 
             }
           })
-
-        // localStorage.setItem('users',res.data)
         
       } catch (error) {
-        console.error('Error during login:', error);
-        alert('Error during login:', error);
+        toast.error('Error during login:', error);
       }
     }
   });
 
+      // VANTA.JS
+
+  useEffect(()=>{
+    GLOBE({
+      el: "#vanta",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      size: 1.7,
+    });
+  },[])
+
 
   return (
     <section className='w-full h-full'>
-    <section className='md:flex-row sm:flex-col lg:flex-row xl:w-7/12 lg:w-10/12 md:w-full h-[70vh] flex mx-auto text-center lg:mt-20 md:mt-16 shadow-2xl hover:translate-y-1 duration-300 ease-in-out rounded-md'>
+        <div id='vanta' className='w-full h-full pt-12 md:h-screen'>
 
-      <div className='md:w-[50%] sm:w-full h-full sm:mb-40 py-2 px-10 text-gray-600 font-mono'>
-          <h2 className='text-lg mt-8 drop-shadow-lg'>Log with your account</h2>
+            {/* main section */}
+            <section className='w-full h-full flex justify-center items-center p-10 md:p-20'>
+                
+                <section className='w-full sm:w-full md:w-11/12 md:flex md:justify-center md:items-center h-full lg:w-11/12 xl:w-7/12 bg-[#030303c4] hover:translate-y-1 duration-300 ease-in-out rounded-md'>
+                    
 
-          <form className='mt-8 mb-4 md:h-[80%] sm:h-full w-full p-10 flex flex-row' onSubmit={handleSubmit} >
-              
-              <section className='w-full py-10 relative'>
-                <div className='flex flex-col gap-4'>
-                  {/* email */}
-                  <div>
-                    <input type='email' placeholder='email@gmail.com' name='email' autoComplete='off' className='w-full border-b-2 px-2 py-1 outline-none rounded-md shadow-sm text-lg' value={values.email} onChange={handleChange} onBlur={handleBlur}/>
-                    {
-                      errors.email && touched.email ? (<small className='block text-start p-1 text-red-500'>{errors.email}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
-                    }
-                  </div>
+                    {/* form page */}
+                    <div className='w-full text-center sm:w-full md:w-1/2 md:px-10'>
+                        <h2 className='text-lg mt-8 drop-shadow-lg text-white'>Log with your account</h2>
 
-                  {/* password */}
-                  <div className='mb-1 relative'>
-                    <input type={`${passwordShow?"text":"password"}`} placeholder='*******' name='password' autoComplete='off' className='w-full border-b-2 px-2 py-1 outline-none rounded-md shadow-sm text-lg' value={values.password} onChange={handleChange} onBlur={handleBlur}/>
-                    <span className={`absolute top-3 right-5 text-gray-600 cursor-pointer`}>{passwordShow ?<FaEye onClick={()=>setPasswordShow(!passwordShow)}/>:<FaEyeSlash onClick={()=>setPasswordShow(!passwordShow)}/>}</span>
-                    {
-                      errors.password && touched.password ? (<small className='block text-start p-1 text-red-500'>{errors.password}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
-                    }
-                  </div>
-                </div>
+                        <form className='mt-8 mb-4 px-5 text-white' onSubmit={handleSubmit}>
+                          
+                            <section  className='w-full pt-5'>
+                                
+                                {/* email */}
+                                <div className='mb-5'>
+                                <input type='email' placeholder='email@gmail.com' name='email' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.email} onChange={handleChange} onBlur={handleBlur}/>
+                                {
+                                  errors.email && touched.email ? (<small className='block text-start p-1 text-red-500'>{errors.email}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
+                                }
+                                </div>
 
-                <section className='md:w-full sm:w-full  h-auto absolute md:bottom-28 sm:bottom-0 left-0'>
-                  <button className='mb-7 mt-2 drop-shadow-md w-[80%] py-1 hover:tracking-widest text-md bg-red-600 rounded-md text-white hover:bg-red-700 focus::bg-red-800 active:bg-red-900 duration-300 ease-in-out' type='submit'>Submit login</button>
-                  <div className='w-full text-end'>
-                    <Link to={'/api/signup'} className='cursor-pointer inline-block '><small>You don't have any account? <span className='text-blue-600 hover:underline'>please SignUp</span></small></Link>
-                  </div>
+                                {/* password */}
+                                <div className='mb-5 relative'>                     
+                                  <input type={`${passwordShow?"text":"password"}`} placeholder='*******' name='password' autoComplete='off' className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm' value={values.password} onChange={handleChange} onBlur={handleBlur}/>
+                                  <span className={`absolute top-1.5 right-3 text-gray-600 cursor-pointer ${errors.password && touched.password ?"top-[15%]":""}`}>{passwordShow ?<FaEye onClick={()=>setPasswordShow(!passwordShow)}/>:<FaEyeSlash onClick={()=>setPasswordShow(!passwordShow)}/>}</span>
+                                  {
+                                    errors.password && touched.password ? (<small className='block text-start p-1 text-red-500'>{errors.password}</small>):(<small className='block text-start p-1 opacity-0'>console</small>)
+                                  }  
+                                </div>
+
+                            </section>
+
+                            {/* form footer */}
+
+                            <section className='mb-5'>
+                            <button className='mb-7 mt-2 drop-shadow-md w-[80%] py-1 hover:tracking-widest text-md bg-red-600 rounded-md text-white hover:bg-red-700 focus::bg-red-800 active:bg-red-900 duration-300 ease-in-out' type='submit'>Submit login</button>
+                                <div className='w-full text-end'>
+                                  <Link to={'/api/signup'} className='cursor-pointer inline-block '><small>You don't have any account? <span className='text-blue-600 hover:underline'>please SignUp</span></small></Link>
+                                </div>
+                            </section>
+
+                        </form>
+                        
+                    </div>
+
+                    {/* img part */}
+                    <div className='w-full h-full sm:w-full md:w-1/2'>
+                        <img className='w-full h-fit md:h-full' src={signUp_img} alt='signUp_img'/>
+                    </div>
                 </section>
 
-              </section>
+            </section>
 
-          </form>
-      </div>
-
-      <div className='md:w-[50%] sm:w-full h-full'>
-          <img className='w-full h-full' src={signUp_img} alt='signUp_img'/>
-      </div>
-
+        </div>
     </section>
-  </section>
   )
 }
 

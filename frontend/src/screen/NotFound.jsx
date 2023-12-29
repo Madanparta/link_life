@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { token } from '../utils/credentials';
 
 const NotFound = () => {
   return (
@@ -11,7 +12,7 @@ const NotFound = () => {
         className="max-w-full h-auto mb-4"
       />
       <p className="text-gray-600">
-        <Link to="/" className="text-blue-500 hover:underline">Go back to home</Link>
+        <Link to={`${token?"/users":"/"}`} className="text-blue-500 hover:underline">Go back to home</Link>
       </p>
     </div>
   )

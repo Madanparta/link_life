@@ -38,7 +38,7 @@ const SignUp = () => {
         initialValues:initialValues,
         validationSchema:signupValidation,
         onSubmit: async(values,action)=>{
-            // console.log(values)
+            console.log(values)
             try {
                 const req = await axios.post(`${BACKEND_API}/api/signup`,values)
 
@@ -71,16 +71,16 @@ const SignUp = () => {
 
   return (
     <section className='w-full h-full'>
-        <div id='vanta' className='w-full h-full pt-12'>
+        <div id='vanta' className='w-full h-full pt-12 md:h-screen'>
 
             {/* main section */}
             <section className='w-full h-full flex justify-center items-center p-10 md:p-20'>
                 
-                <section className='w-full sm:w-full md:w-11/12 md:flex md:justify-center md:items-center h-fit lg:w-11/12 xl:w-7/12 h-full bg-[#030303c4] hover:translate-y-1 duration-300 ease-in-out rounded-md'>
+                <section className='w-full sm:w-full md:w-11/12 md:flex md:justify-center md:items-center lg:w-11/12 xl:w-7/12 md:h-fit bg-[#030303c4] hover:translate-y-1 duration-300 ease-in-out rounded-md'>
                     
                     {/* img part */}
                     <div className='w-full h-full sm:w-full md:w-1/2'>
-                        <img className='w-full h-fit md:h-full' src={signUp_img} alt='signUp_img'/>
+                        <img className='w-full h-full' src={signUp_img} alt='signUp_img'/>
                     </div>
 
                     {/* form page */}
@@ -122,7 +122,8 @@ const SignUp = () => {
                                     <div className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm'>
                                         <label htmlFor="gender" className='text-white'>Gender : </label>
                                         <select id='gender' className='outline-none cursor-pointer text-black' name='gender' value={values.gender} onChange={handleChange} onBlur={handleBlur}>
-                                            <option value="male" selected>Male</option>
+                                            <option value=""></option>
+                                            <option value="male" >Male</option>
                                             <option value="female">Female</option>
                                             <option value="other">Other</option>
                                         </select>
@@ -136,7 +137,8 @@ const SignUp = () => {
                                     <div className='w-full border-b-2 bg-transparent px-2 py-1 outline-none rounded-md shadow-sm'>
                                         <label htmlFor="blood_group" className='text-white'>Blood Group : </label>
                                         <select id='blood_group' className='outline-none cursor-pointer text-black' name='blood_group' value={values.blood_group} onChange={handleChange} onBlur={handleBlur}>
-                                            <option value="A+" selected>A+</option>
+                                            <option value=""></option>
+                                            <option value="A+">A+</option>
                                             <option value="A-">A-</option>
                                             <option value="B+">B+</option>
                                             <option value="B-">B-</option>

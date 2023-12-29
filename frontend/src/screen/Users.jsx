@@ -15,7 +15,6 @@ const Users = () => {
 
   // search state variables.
   const [search,setSearch]=useState('');
-  const [searchButton,setSearchButton]=useState([]);
 
   const navigation = useNavigate();
 
@@ -51,29 +50,26 @@ const Users = () => {
   }
 
   // search submit..
-  let filter = users.filter((ser)=>ser.blood_group.toLowerCase().includes(search.toLocaleLowerCase()))
-  const searchSubmit = (filter) => {
-    setSearchButton(filter)
-  }
+  let filter = users.filter((ser)=>ser.blood_group.toLowerCase().includes(search) || ser.city.toLowerCase().includes(search) || ser.state.toLowerCase().includes(search) || ser.district.includes(search));
 
   // const just = feedback.forEach((info)=>info)
-  // console.log(feedback)
+  console.log(search)
 
 
   return (
     <>
-      <section className="w-full h-fit bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r sticky top-[3.3rem] left-0">
+      <section className="w-full overflow-hidden h-fit bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r sticky md:top-[3.3rem] left-0">
         <section className="w-full h-fit pt-20 relative">
 
           {/* donate tag */}
-          <div className="w-24 h-fit absolute top-10 -right-12 hover:right-0 duration-200 ease-in-out ">
+          <div className="w-24 h-full absolute top-10 -right-12 hover:right-0 duration-200 ease-in-out ">
             <NavLink to='nav' className='text-white rounded-l-full px-2 flex justify-center bg-gray-500 hover:bg-gray-600 active:bg-gray-700 font-bold hover:text-black shadow-lg shadow-red-300'><span className="drop-shadow-md">🩸</span> Donate</NavLink>
           </div>
 
 
           {/* searching section */}
           <div className="w-full h-full px-2 py-3  flex justify-center pb-20">
-            <div className="w-5/12 h-fit flex justify-center">
+            <div className="w-9/12 md:w-5/12 h-fit flex justify-center">
               <input
                 type="text"
                 placeholder="Search..."
@@ -81,13 +77,11 @@ const Users = () => {
                 name="search"
                 id="search"
                 value={search}
-                onChange={(e)=>setSearch(e.target.value)}
+                onChange={(e)=>setSearch(e.target.value.toLowerCase())}
               />
               <button
                 className="bg-gray-200 px-3 rounded-r-lg shadow-inherit font-bold hover:bg-gray-300 active:bg-gray-400 duration-100 ease-in-out"
                 type="submit"
-
-                onClick={()=>searchSubmit(filter)}
               >
                 Search
               </button>
@@ -101,11 +95,12 @@ const Users = () => {
       <div className="w-full h-full border bg-white relative">
         <table className="w-full h-full">
           <thead>
-            <tr className="w-full h-full sticky top-[16.5rem] left-0 bg-white shadow">
+            <tr className="w-full h-full sticky md:top-[16.5rem] left-0 bg-white shadow">
               <th className="border py-2 w-1/12">SL NO</th>
               <th className="border py-2 w-2/12">Username</th>
               <th className="border py-2 w-2/12">Blood Group</th>
               <th className="border py-2 w-2/12">City</th>
+              <th className="border py-2 w-2/12">district</th>
               <th className="border py-2 w-2/12">State</th>
               <th className="border py-2  w-3/12">Feedback</th>
             </tr>
