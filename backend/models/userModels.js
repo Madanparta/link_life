@@ -48,15 +48,19 @@ const usersSchema = new mongoose.Schema({
         required: true,
         set:(value)=>value.toUpperCase(),
       },
-      role: {
-        type: String,
-        required: true,
-        // enum: ['donor', 'receiver', 'blodoBank', 'admin'],
+      feedback:{type:String,},
+      role:{
+        type:String
       },
-      // approved: {
-      //   type: Boolean,
-      //   default: false
-      // }
+      // role: {
+      //   type: String,
+      //   required: true,
+      //   // enum: ['donor', 'receiver', 'blodoBank', 'admin'],
+      // },
+      approved: {
+        type: Boolean,
+        default: false
+      }
 },{timestamps:true});
 
 const User = mongoose.model('User',usersSchema);

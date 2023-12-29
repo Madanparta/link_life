@@ -38,7 +38,7 @@ userLog.post('/signin',asyncHandler(async(req,res)=>{
                     "district":userExist.district,
                     "state":userExist.state,
                     "blood_group":userExist.blood_group,
-                    "role":userExist.role,
+                    // "role":userExist.role,
                     "token":token,
                  });
             }

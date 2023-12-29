@@ -4,7 +4,7 @@ import { donorValidation } from '../schema';
 import { IoArrowUndo } from "react-icons/io5";
 import { BACKEND_API } from "../utils/credentials";
 import { token } from '../utils/credentials';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const initialValues = {
@@ -13,6 +13,7 @@ const initialValues = {
 }
 
 const Donor = () => {
+    const navigation = useNavigate()
 
     const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
         initialValues:initialValues,
@@ -26,6 +27,7 @@ const Donor = () => {
                 const data = await req.json();
                 if(data){
                     alert("successfully added.")
+                    navigation('/users')
                     action.resetForm()
                 }
 

@@ -1,16 +1,16 @@
-
 import Main from './components/Main';
 import Header from './components/Header';
-import { useState } from 'react';
+import {Toaster} from 'react-hot-toast';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <>
-      <Header isAuthenticated={isAuthenticated}/>
-      <Main isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated}/>
+      <Toaster position="bottom-right" toastOptions={{duration:2000}} reverseOrder={false} />
+      <Header />
+      <Main />
     </>
-  )
+  );
 }
 
 export default App

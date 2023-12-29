@@ -15,7 +15,7 @@ const initialValues = {
   password:"",
 }
 
-const SignIn = ({setIsAuthenticated}) => {
+const SignIn = () => {
   const [passwordShow,setPasswordShow] = useState(false);
 
   const navigation = useNavigate();
@@ -29,13 +29,14 @@ const SignIn = ({setIsAuthenticated}) => {
 
         await Axios.post(`${BACKEND_API}/api/signin`,values)
           .then((res)=>{
-            // console.log(res.data);
-            localStorage.setItem("user",JSON.stringify(res.data));
-            // localStorage.setItem("user",res.data);
-            setIsAuthenticated(true)
-            alert(" User Login successfully")
-            navigation('/dashBord')
-            // action.resetForm()
+
+            if(res.status === 200){
+              localStorage.setItem("user",JSON.stringify(res.data));
+              navigation('/users')
+              alert(" User Login successfully")
+              action.resetForm()
+
+            }
           })
 
         // localStorage.setItem('users',res.data)

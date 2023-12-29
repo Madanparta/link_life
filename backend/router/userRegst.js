@@ -6,8 +6,9 @@ const User = require('../models/userModels');
 
 
 userRegst.post('/signup',asyncHandler(async(req,res)=>{
+    // console.log(req.body);
     try {
-        const {name,username,age,password,email,phone_number,gender,city,district,blood_group,role,state} = req.body;
+        const {name,username,age,password,email,phone_number,gender,city,district,blood_group,state} = req.body;
 
         const emailCheck = await User.findOne({email});
         if(emailCheck){
@@ -21,13 +22,12 @@ userRegst.post('/signup',asyncHandler(async(req,res)=>{
                 })
             }
             if(hash){
-                await User.create({name,username,age,password:hash,email,phone_number,gender,city,district,blood_group,role,state})
+                await User.create({name,username,age,password:hash,email,phone_number,gender,city,district,blood_group,state})
                 return res.status(200).json({ success: 'User registration successful' })
             }
         })
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
-        console.log(error)
 
     }
 }));

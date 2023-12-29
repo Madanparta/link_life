@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import EditUser from './EditUser';
-import {userData} from '../utils/credentials';
+import { BiDonateBlood } from "react-icons/bi";
+import {token, userData} from '../utils/credentials';
 
 
-const Profile = ({setIsAuthenticated}) => {
+const Profile = () => {
+
   const navigate = useNavigate(); 
   const [isEditing,setIsEditing]=useState(false);
   const { username,email,phone_number,city,state,blood_group,role,_id } = userData;
 
   // console.log(_id)
    
-  const onLogout = () => {
-    navigate('/')
-    setIsAuthenticated(false);
-    localStorage.removeItem("user")
+  const GoDonationPage = () => {
+    if(token){
+      navigate('/users/nav')
+    }
   }
+
   const back_to_dashbord =()=>{
-    navigate('/dashBord')
+    navigate('/users')
   }
 
   const handleEditClick = () => {
@@ -27,7 +30,7 @@ const Profile = ({setIsAuthenticated}) => {
   return (
     <section className='h-full w-full p-10'>
       <div className='flex flex-col gap-2 mb-5'>
-        <p  onClick={onLogout} className={`transition duration-200 ease-in-out cursor-pointer w-fit px-2 py-1 rounded-md bg-gray-400 text-white font-bold hover:bg-gray-500 active:bg-gray-600 ${isEditing?"cursor-not-allowed":"cursor-pointer"}`}>Sign Out</p>
+        <p  onClick={GoDonationPage} className={`transition duration-200 ease-in-out cursor-pointer w-fit px-2 py-1 rounded-md bg-red-400 text-white font-bold hover:bg-red-500 active:bg-red-600 ${isEditing?"cursor-not-allowed":"cursor-pointer"} flex justify-center items-center`}>Donat your blood <BiDonateBlood /></p>
         <p  onClick={back_to_dashbord} className={`transition duration-200 ease-in-out cursor-pointer w-fit px-2 py-1 rounded-md bg-gray-400 text-white font-bold hover:bg-gray-500 active:bg-gray-600  ${isEditing?"cursor-not-allowed":"cursor-pointer"}`}>back to dashbord</p>
       </div>
 

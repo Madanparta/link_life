@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import { IoArrowUndo } from "react-icons/io5";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { bloodBankInputDataValidation } from "../schema";
 import { BACKEND_API, token } from "../utils/credentials";
 
@@ -11,6 +11,8 @@ const initialValues = {
 }
 
 const BloodBank = () => {
+  const navigation = useNavigate()
+
   const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
     initialValues:initialValues,
     validationSchema:bloodBankInputDataValidation,
@@ -23,6 +25,7 @@ const BloodBank = () => {
         if(data){
           alert('successfully added')
           action.resetForm()
+          navigation('/users');
         }
       } catch (error) {
         console.error('Error during BloodBank:', error);

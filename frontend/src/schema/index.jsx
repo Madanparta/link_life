@@ -12,7 +12,6 @@ export const signupValidation = Yup.object({
     district: Yup.string().required('District is required'),
     state: Yup.string().required('State is required'),
     blood_group: Yup.string().required('Blood group is required'),
-    role: Yup.string().required('Role is required'),
     // terms_and_condition: Yup.boolean().oneOf([true], 'Please accept the terms and conditions'),
 });
 
@@ -40,4 +39,8 @@ export const userEditingValidation = Yup.object({
     password: Yup.string().required('Password is required'),
     state: Yup.string().required('State is required'),
     city: Yup.string().required('City is required'),
+});
+
+export const feedbackValidation = Yup.object({
+    feedback:Yup.string()
 })
