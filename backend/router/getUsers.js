@@ -1,6 +1,6 @@
 const express = require('express');
 const User = require('../models/userModels');
-const Feedback = require('../models/feedbackModels');
+// const Feedback = require('../models/feedbackModels');
 const Authentication = require('../middleware/autherization');
 const getUsers = express.Router();
 
@@ -20,20 +20,34 @@ getUsers.get('/users',async(req,res)=>{
 });
 
 
-getUsers.post('/users/feedback',async(req,res)=>{
-    console.log(req.body)
+getUsers.put('/feedback/:id', async(req,res)=>{
+    let id = req.params.id;
     try {
-        const user = await Feedback.findOne({user:req.user});
-        if(!user){
-            await Feedback.create({user:req.user,...req.body});
-            res.status(201).json({message:"feedback successfully"})
-        }else{
-            res.status(404).json({ error: 'user alredy added the details' });
+        let updateData =await User.findByIdAndUpdate({_id:id})
+        if(updateData){
+            return res.status(200).json({message:"feedback updated"});
         }
     } catch (error) {
         res.status(500).json({ error: 'Internal Server Error' });
         console.log(error)
     }
 })
+
+
+// getUsers.post('/users/feedback',async(req,res)=>{
+//     console.log(req.body)
+//     try {
+//         const user = await Feedback.findOne({user:req.user});
+//         if(!user){
+//             await Feedback.create({user:req.user,...req.body});
+//             res.status(201).json({message:"feedback successfully"})
+//         }else{
+//             res.status(404).json({ error: 'user alredy added the details' });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ error: 'Internal Server Error' });
+//         console.log(error)
+//     }
+// })
 
 module.exports = getUsers;

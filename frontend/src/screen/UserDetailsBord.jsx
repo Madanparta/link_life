@@ -2,8 +2,7 @@
 import { LiaTelegram } from "react-icons/lia";
 
 const UserDetailsBord = ({info,index}) => {
-  const {blood_group,city,name,state,district} = info;
-  // console.log(info)
+  const {blood_group,city,name,state,district,} = info;
   return (
     <>
       <td className="border py-2 px-0.5 overflow-x-hidden w-0.5/12 text-center cursor-pointer">{index}</td>
@@ -16,6 +15,7 @@ const UserDetailsBord = ({info,index}) => {
         {/* <button className="cursor-pointer py-1 px-2 mx-3 rounded-md text-black bg-green-500 hover:bg-green-600 focus:bg-green-700 active:bg-green-800 shadow-md hover:text-white"><a href={`sms:${phone_number}?body=${encodeURIComponent(messageBody)}`}>Send text message</a></button>
         <button className="cursor-pointer py-1 px-2 mx-3 rounded-md text-black bg-red-500 hover:bg-red-600 focus:bg-red-700 active:bg-red-800 shadow-md hover:text-white"><a href={`tel:+${phone_number}`}>Call Us</a></button>
         <button><LiaTelegram className="cursor-pointer text-[1.4rem] mx-3 drop-shadow-lg"/></button> */}
+
         {
 
         }

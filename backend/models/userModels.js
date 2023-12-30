@@ -44,22 +44,18 @@ const usersSchema = new mongoose.Schema({
       },
       blood_group: {
         type: String,
-        // Example: enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
         required: true,
         set:(value)=>value.toUpperCase(),
       },
-      feedback:{type:String,},
       role:{
-        type:String
+        type:String,
       },
-      // role: {
-      //   type: String,
-      //   required: true,
-      //   // enum: ['donor', 'receiver', 'blodoBank', 'admin'],
-      // },
       approved: {
         type: Boolean,
         default: false
+      },
+      feedback:{
+        type:String,
       }
 },{timestamps:true});
 

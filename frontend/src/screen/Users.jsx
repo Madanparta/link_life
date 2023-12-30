@@ -43,7 +43,9 @@ const Users = () => {
 
   const sectionItems = (info) => {
     setSelectItem(info)
+
   }
+
 
   const userProfileHandler = () => {
     setUserProfileHandling(!userProfileHandling)

@@ -21,8 +21,6 @@ const initialValues = {
 const SignIn = () => {
   const [passwordShow,setPasswordShow] = useState(false);
 
-  const navigation = useNavigate();
-
   const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
     initialValues:initialValues,
     validationSchema:signInValidation,
@@ -35,7 +33,7 @@ const SignIn = () => {
 
             if(res.status === 200){
               localStorage.setItem("user",JSON.stringify(res.data));
-              navigation('/users')
+              window.location.assign('/users')
               toast.success("successfully login")
               action.resetForm()
 
