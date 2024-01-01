@@ -92,4 +92,21 @@ dashBord.put('/update/:id',async(req,res)=>{
     }
 })
 
+
+// admin controall approval and reject...
+dashBord.put('/approval/:id',async(req,res)=>{
+    let id = req.params.id;
+    const {approved}=req.body;
+    console.log(approved)
+    try {
+        let updateData =await User.findByIdAndUpdate({_id:id},{approved:approved})
+        if(updateData){
+            return res.status(200).json(updateData);
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        console.log(error)
+    }
+})
+
 module.exports = dashBord;

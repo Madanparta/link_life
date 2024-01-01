@@ -71,7 +71,7 @@ const IsAdmin = ({users,filter}) => {
             {
                 users && users.length > 0 ? (filter.map((info,index)=>(
                     <tr onClick={()=>{setUserInfo(info);setPopshow(true);}} key={info._id} className="w-full h-full hover:bg-gray-50 active:bg-gray-100">
-                        <IsAdminDashbord index={index} info={info}/>
+                        <IsAdminDashbord index={index} info={info} donor={donor} bloodbanker={bloodbanker}/>
                     </tr>
                 ))):(null)
             }
