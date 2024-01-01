@@ -42,6 +42,7 @@ const SignUp = () => {
                 const req = await axios.post(`${BACKEND_API}/api/signup`,values)
 
                 if(req.status === 200){
+                    toast.success('please note your password in with your register number.')
                     toast.success("successfully createdd")
                     action.resetForm()
                     navigation('/')
@@ -53,7 +54,6 @@ const SignUp = () => {
         }
     })
 
-    // VANTA.JS
 
     useEffect(()=>{
         GLOBE({

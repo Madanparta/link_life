@@ -46,8 +46,6 @@ const SignIn = () => {
     }
   });
 
-      // VANTA.JS
-
   useEffect(()=>{
     GLOBE({
       el: "#vanta",
@@ -61,7 +59,6 @@ const SignIn = () => {
       size: 1.7,
     });
   },[])
-
 
   return (
     <section className='w-full h-full'>

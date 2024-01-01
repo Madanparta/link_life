@@ -3,6 +3,7 @@ import { userEditingValidation } from '../schema';
 import {  useNavigate, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { BACKEND_API } from '../utils/credentials';
+import toast from 'react-hot-toast';
 
 
 const initialValues = {
@@ -17,10 +18,6 @@ const initialValues = {
 const EditUser = ({isEditing,setIsEditing}) => {
     const {id} = useParams();
     const navigation = useNavigate();
-
-    // const handleEditClick = () => {
-    //     setIsEditing(!isEditing);
-    //   }
     
 
     const {errors,handleBlur,handleChange,handleSubmit,values} = useFormik({
@@ -32,12 +29,11 @@ const EditUser = ({isEditing,setIsEditing}) => {
                 .then((res)=>{
                     localStorage.setItem("user",JSON.stringify(res.data));  
                 });
-                alert(" User editing updated successfully");
+                toast.success(" User editing updated successfully");
                 action.resetForm()
             
           } catch (error) {
-            console.error('Error during editing profile:', error);
-            alert('Error during editing profile:', error);
+            toast.error('Error during editing profile:', error);
           }
         }
       })

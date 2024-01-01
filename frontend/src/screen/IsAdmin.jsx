@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import IsAdminDashbord from './IsAdminDashbord'
 import { BACKEND_API, token } from '../utils/credentials';
 import AdminPop from './AdminPop';
+import Spinner from './Spinner';
 
 const IsAdmin = ({users,filter}) => {
   const [donor,setDoner]=useState([]);
   const [bloodbanker,setBloodbanker]=useState([]);
   const [popshow,setPopshow]=useState(false)
   const [userInfo,setUserInfo]=useState(null);
+
+  const {spinner,setSpinner}=useState(false)
 
 
   const donerEndPoin = `${BACKEND_API}/api/donor`
@@ -39,8 +42,10 @@ const IsAdmin = ({users,filter}) => {
 
         setDoner(donorResult.data);
         setBloodbanker(bloodbankerResult.data);
+        setSpinner(true)
       } catch (error) {
         console.error('Error fetching both data:', error);
+        setSpinner(false);
       }
     }
 
@@ -50,6 +55,7 @@ const IsAdmin = ({users,filter}) => {
   // console.log(donor)
   // console.log(bloodbanker)
 
+  if(!spinner){<Spinner/>}
   return (
     <div className='w-full h-full border bg-white relative'>
       <table className='w-full h-full'>

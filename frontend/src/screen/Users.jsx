@@ -7,6 +7,8 @@ import DonetCompo from "../components/DonetCompo.jsx";
 
 import { userData } from "../utils/credentials";
 import IsAdmin from "./IsAdmin.jsx";
+import toast from "react-hot-toast";
+import Spinner from "./Spinner.jsx";
 
 
 const Users = () => {
@@ -20,6 +22,7 @@ const Users = () => {
   useEffect(()=>{
     if(token){
       fetchUserData()
+      findingApprovalOrNot()
     }else{
       localStorage.removeItem(token);
       window.location.assign('/')
@@ -32,10 +35,14 @@ const Users = () => {
       const response = await req.json();
 
       setUsers(response.data);
-
+      if(response.data){
+        toast.success("succesfully landing dashBord.")
+      }else{
+        window.location.assign('/')
+        localStorage.removeItem("user")
+      }
     } catch (error) {
-      console.error('Error during getting data:', error);
-      alert('Error during getting data:', error);
+      toast.error('Error during getting data:', error);
     }
   }
 
@@ -52,11 +59,19 @@ const Users = () => {
   // search submit..
   let filter = users.filter((ser)=>ser.blood_group.toLowerCase().includes(search.toLowerCase()) || ser.district.includes(search.toLowerCase()) || ser.city.toLowerCase().includes(search.toLowerCase()) || ser.state.toLowerCase().includes(search.toLowerCase()));
 
-  // const just = feedback.forEach((info)=>info)
-  // console.log(search)
+
+  // sending user your account approval or not like..
+  const findingApprovalOrNot = () => {
+    users.find((info)=>{
+      if(info._id === userData._id){
+        info.approved ? toast.success('your account approved..🚀') : toast.error("your account still pending hop's approved soon.!! 🤞 ")
+      }
+    })
+  }
 
   return (
     <>
+    {!users && <Spinner/>}
       <section className="w-full overflow-hidden h-fit bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r sticky md:top-[3.3rem] left-0">
         <section className="w-full h-fit pt-20 relative">
 
@@ -113,9 +128,11 @@ const Users = () => {
               <tbody className="w-full h-full">
                 {
                   users && users.length > 0 ? (filter.map((info,index)=>(
-                    <tr onClick={()=>{userProfileHandler();sectionItems(info);}} key={info._id} className="w-full h-full hover:bg-gray-50 active:bg-gray-100">
-                      <UserDetailsBord index={index} info={info} />
-                    </tr>
+                    info.approved ? (
+                      <tr onClick={()=>{userProfileHandler();sectionItems(info);}} key={info._id} className="w-full h-full hover:bg-gray-50 active:bg-gray-100">
+                        <UserDetailsBord index={index} info={info} />
+                      </tr>
+                    ):(null)
                   ))):(null)
                 }
                 {/* <tr className="w-full h-full">
@@ -127,7 +144,7 @@ const Users = () => {
 
             {/* user feedback profile box */}
             { userProfileHandling && selectItem ? (
-            <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-fit border  rounded-sm bg-white shadow-lg px-2 py-5">
+            <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit border  rounded-sm bg-white shadow-lg px-2 py-5">
               <UsersFeedback selectItem={selectItem} userProfileHandler={userProfileHandler}/>
             </section>
             ) : ""}

@@ -6,6 +6,7 @@ import { BACKEND_API, token } from "../utils/credentials";
 import toast from 'react-hot-toast'
 
 import { IoSend } from "react-icons/io5";
+import { useState } from "react";
 
 const initialValues = {
     feedback:"",
@@ -13,7 +14,8 @@ const initialValues = {
 
 const UsersFeedback = ({userProfileHandler,selectItem}) => {
 
-    const {phone_number,username,_id} = selectItem;
+    const {phone_number,username,_id,role} = selectItem;
+    const {spinner,setSpinner}=useState(false)
 
     const {handleBlur,handleChange,handleSubmit,values} = useFormik({
         initialValues:initialValues,
@@ -27,21 +29,24 @@ const UsersFeedback = ({userProfileHandler,selectItem}) => {
                 const data = await req.json();
                 if(data){
                     window.location.assign('/users')
+                    setSpinner(true)
                     toast.success("successfullyu added feedback")
                     action.resetForm()
                 }
 
             } catch (error) {
                 toast.error('Error during feedback:', error);
+                setSpinner(false);
             }
         }
     });
 
+    if(!spinner){<spinner/>}
   return (
     <>
         <div className="w-full flex justify-end text-end px-5"><RxCross2 onClick={userProfileHandler} className="text-2xl cursor-pointer font-bold"/></div>
         <section className="w-full text-center">
-            <h2 className="text-2xl font-bold capitalize my-6">{username} ( "d/b")</h2>
+            <h2 className="text-2xl font-bold capitalize my-6">{username} <span className="text-sm font-light">({role})</span></h2>
 
 
             <div className="py-2 w-full flex justify-center items-center">

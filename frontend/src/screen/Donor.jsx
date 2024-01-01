@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import { donorValidation } from '../schema';
 import { IoArrowUndo } from "react-icons/io5";
 import { BACKEND_API } from "../utils/credentials";
 import { token } from '../utils/credentials';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import Spinner from './Spinner';
 
 
 const initialValues = {
@@ -14,30 +16,33 @@ const initialValues = {
 
 const Donor = () => {
     const navigation = useNavigate()
+    const {spinner,setSpinner}=useState(false);
 
     const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
         initialValues:initialValues,
         validationSchema:donorValidation,
         onSubmit: async(values,action)=>{
-            // console.log(values)
 
             try {
                 const req = await fetch(`${BACKEND_API}/dashBord/donor`,{method: 'POST',headers:{'Content-Type': 'application/json','x-access-token':token},body: JSON.stringify(values),})
 
                 const data = await req.json();
                 if(data){
-                    alert("successfully added.")
+                    toast.success("successfully added.")
                     navigation('/users')
+                    setSpinner(true)
                     action.resetForm()
                 }
 
             } catch (error) {
-                console.error('Error during Donor:', error);
-                alert('Error during Donor:', error);
+                toast.error('Error during Donor:', error);
+                setSpinner(false)
             }
         }
     });
     
+
+    if(!spinner){<Spinner/>}
   return (
     <section className='w-full h-full flex justify-center items-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r'>
         <section className='h-[86.3vh] w-[80%] m-auto mt-[8vh] flex justify-center relative'>
