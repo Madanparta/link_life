@@ -3,6 +3,7 @@ import { LiaTelegram } from "react-icons/lia";
 import { RxCross2 } from "react-icons/rx";
 import { feedbackValidation } from "../schema";
 import { BACKEND_API, token } from "../utils/credentials";
+import toast from 'react-hot-toast'
 
 import { IoSend } from "react-icons/io5";
 
@@ -18,44 +19,24 @@ const UsersFeedback = ({userProfileHandler,selectItem}) => {
         initialValues:initialValues,
         validationSchema:feedbackValidation,
         onSubmit: async(values,action)=>{
-            console.log(values)
+            // console.log(values)
 
             try {
-                // const req = await fetch(`${BACKEND_API}/api/users/feedback`,{method: 'POST',headers:{'Content-Type': 'application/json','x-access-token':token},body: JSON.stringify(values),})
+                const req = await fetch(`${BACKEND_API}/dashBord/feedback/${_id}`,{method: 'PUT',headers:{'Content-Type': 'application/json','x-access-token':token},body: JSON.stringify(values),})
 
-                // const data = await req.json();
-                // console.log(data)
-                // if(data){
-                //     alert("successfullyu added feedback")
-                //     action.resetForm()
-                // }
+                const data = await req.json();
+                if(data){
+                    window.location.assign('/users')
+                    toast.success("successfullyu added feedback")
+                    action.resetForm()
+                }
 
             } catch (error) {
-                console.error('Error during feedback:', error);
-                alert('Error during feedback:', error);
+                toast.error('Error during feedback:', error);
             }
         }
     });
 
-
-    // const updateFeedback = async()=>{
-    //     try {
-    //       const configuration = {
-    //         url : `${BACKEND_API}/api/feedback/:${selectItem._id}`,
-    //         method:'PUT',
-    //         data : {feedback:}
-    //       }
-    //       // const req = await fetch(`${BACKEND_API}/feedback/`,{method:'GET',headers:{'Content-Type':'application/json','x-access-token':token}})
-    //       // const response = await req.json();
-    
-    //       // setUsers(response.data);
-    //       // setFeedback(response.data)
-    
-    //     } catch (error) {
-    //       console.error('Error during getting data:', error);
-    //       alert('Error during getting data:', error);
-    //     }
-    //   }
   return (
     <>
         <div className="w-full flex justify-end text-end px-5"><RxCross2 onClick={userProfileHandler} className="text-2xl cursor-pointer font-bold"/></div>

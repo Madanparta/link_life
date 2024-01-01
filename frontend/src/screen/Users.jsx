@@ -2,28 +2,27 @@ import { useEffect, useState } from "react";
 import UserDetailsBord from "./UserDetailsBord";
 import { BACKEND_API, token } from "../utils/credentials";
 
-import axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
 import UsersFeedback from './UsersFeedback.jsx';
+import DonetCompo from "../components/DonetCompo.jsx";
+
+import { userData } from "../utils/credentials";
+import IsAdmin from "./IsAdmin.jsx";
 
 
 const Users = () => {
   const [users,setUsers]=useState([]);
   const [userProfileHandling,setUserProfileHandling]=useState(true);
   const [selectItem,setSelectItem]=useState(null);
-  const [feedback,setFeedback]=useState([])
 
   // search state variables.
   const [search,setSearch]=useState('');
-
-  const navigation = useNavigate();
 
   useEffect(()=>{
     if(token){
       fetchUserData()
     }else{
       localStorage.removeItem(token);
-      navigation('/')
+      window.location.assign('/')
     }
   },[token]);
 
@@ -33,7 +32,6 @@ const Users = () => {
       const response = await req.json();
 
       setUsers(response.data);
-      setFeedback(response.data)
 
     } catch (error) {
       console.error('Error during getting data:', error);
@@ -52,11 +50,10 @@ const Users = () => {
   }
 
   // search submit..
-  let filter = users.filter((ser)=>ser.blood_group.toLowerCase().includes(search) || ser.city.toLowerCase().includes(search) || ser.state.toLowerCase().includes(search) || ser.district.includes(search));
+  let filter = users.filter((ser)=>ser.blood_group.toLowerCase().includes(search.toLowerCase()) || ser.district.includes(search.toLowerCase()) || ser.city.toLowerCase().includes(search.toLowerCase()) || ser.state.toLowerCase().includes(search.toLowerCase()));
 
   // const just = feedback.forEach((info)=>info)
-  console.log(search)
-
+  // console.log(search)
 
   return (
     <>
@@ -64,9 +61,12 @@ const Users = () => {
         <section className="w-full h-fit pt-20 relative">
 
           {/* donate tag */}
-          <div className="w-24 h-full absolute top-10 -right-12 hover:right-0 duration-200 ease-in-out ">
-            <NavLink to='nav' className='text-white rounded-l-full px-2 flex justify-center bg-gray-500 hover:bg-gray-600 active:bg-gray-700 font-bold hover:text-black shadow-lg shadow-red-300'><span className="drop-shadow-md">🩸</span> Donate</NavLink>
-          </div>
+          {userData.role !== 'admin' && (<div className="w-fit h-fit absolute top-10 -right-[6rem] hover:right-0 duration-200 ease-in-out " title="please select carefully!!">
+            {/* <NavLink to='nav' className='text-white rounded-l-full px-2 flex justify-center bg-gray-500 hover:bg-gray-600 active:bg-gray-700 font-bold hover:text-black shadow-lg shadow-red-300'><span className="drop-shadow-md">🩸</span> Donate</NavLink> */}
+            <div className='cursor-pointer text-white rounded-l-full px-2 flex justify-center items-center bg-gray-500 hover:bg-gray-600 active:bg-gray-700 font-bold hover:text-black shadow-lg shadow-red-300'>
+              <DonetCompo/>
+            </div>
+          </div>)}
 
 
           {/* searching section */}
@@ -79,7 +79,7 @@ const Users = () => {
                 name="search"
                 id="search"
                 value={search}
-                onChange={(e)=>setSearch(e.target.value.toLowerCase())}
+                onChange={(e)=>setSearch(e.target.value)}
               />
               <button
                 className="bg-gray-200 px-3 rounded-r-lg shadow-inherit font-bold hover:bg-gray-300 active:bg-gray-400 duration-100 ease-in-out"
@@ -94,42 +94,47 @@ const Users = () => {
 
 
       {/* user section */}
-      <div className="w-full h-full border bg-white relative">
-        <table className="w-full h-full">
-          <thead>
-            <tr className="w-full h-full sticky md:top-[16.5rem] left-0 bg-white shadow">
-              <th className="border py-2 w-1/12">SL NO</th>
-              <th className="border py-2 w-2/12">Username</th>
-              <th className="border py-2 w-2/12">Blood Group</th>
-              <th className="border py-2 w-2/12">City</th>
-              <th className="border py-2 w-2/12">district</th>
-              <th className="border py-2 w-2/12">State</th>
-              <th className="border py-2  w-3/12">Feedback</th>
-            </tr>
-          </thead>
-
-          <tbody className="w-full h-full">
-            {
-              users && users.length > 0 ? (filter.map((info,index)=>(
-                <tr onClick={()=>{userProfileHandler();sectionItems(info);}} key={info._id} className="w-full h-full hover:bg-gray-50 active:bg-gray-100">
-                  <UserDetailsBord index={index} info={info} />
+      {userData.role !== 'admin' ?(
+        <>
+          <div className="w-full h-full border bg-white relative">
+            <table className="w-full h-full">
+              <thead>
+                <tr className="w-full h-full sticky md:top-[16.5rem] left-0 bg-white shadow">
+                  <th className="border py-2 w-1/12">SL NO</th>
+                  <th className="border py-2 w-2/12">Username</th>
+                  <th className="border py-2 w-2/12">Blood Group</th>
+                  <th className="border py-2 w-2/12">City</th>
+                  <th className="border py-2 w-2/12">district</th>
+                  <th className="border py-2 w-2/12">State</th>
+                  <th className="border py-2  w-3/12">Feedback</th>
                 </tr>
-              ))):(null)
-            }
-            {/* <tr className="w-full h-full">
-              <UserDetailsBord />
-            </tr> */}
-          </tbody>
-        </table>
+              </thead>
+
+              <tbody className="w-full h-full">
+                {
+                  users && users.length > 0 ? (filter.map((info,index)=>(
+                    <tr onClick={()=>{userProfileHandler();sectionItems(info);}} key={info._id} className="w-full h-full hover:bg-gray-50 active:bg-gray-100">
+                      <UserDetailsBord index={index} info={info} />
+                    </tr>
+                  ))):(null)
+                }
+                {/* <tr className="w-full h-full">
+                  <UserDetailsBord />
+                </tr> */}
+              </tbody>
+            </table>
 
 
-        {/* user feedback profile box */}
-        { userProfileHandling && selectItem ? (
-        <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-fit border  rounded-sm bg-white shadow-lg px-2 py-5">
-          <UsersFeedback selectItem={selectItem} userProfileHandler={userProfileHandler}/>
-        </section>
-        ) : ""}
-      </div>
+            {/* user feedback profile box */}
+            { userProfileHandling && selectItem ? (
+            <section className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-fit border  rounded-sm bg-white shadow-lg px-2 py-5">
+              <UsersFeedback selectItem={selectItem} userProfileHandler={userProfileHandler}/>
+            </section>
+            ) : ""}
+          </div>
+        </>
+      ):
+      (<IsAdmin users={users} filter={filter}/>)}
     </>
   );
 }

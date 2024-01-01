@@ -1,8 +1,9 @@
 
-import { LiaTelegram } from "react-icons/lia";
 
 const UserDetailsBord = ({info,index}) => {
-  const {blood_group,city,name,state,district,} = info;
+  const {blood_group,city,name,state,district,feedback,role} = info;
+
+  if(role === 'admin') return;
   return (
     <>
       <td className="border py-2 px-0.5 overflow-x-hidden w-0.5/12 text-center cursor-pointer">{index}</td>
@@ -17,7 +18,7 @@ const UserDetailsBord = ({info,index}) => {
         <button><LiaTelegram className="cursor-pointer text-[1.4rem] mx-3 drop-shadow-lg"/></button> */}
 
         {
-
+          feedback?feedback:"N/A"
         }
       </td>
     </>

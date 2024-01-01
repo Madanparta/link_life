@@ -22,7 +22,7 @@ userRegst.post('/signup',asyncHandler(async(req,res)=>{
                 })
             }
             if(hash){
-                await User.create({name,username,age,password:hash,email,phone_number,gender,city,district,blood_group,state,role:role || null,feedback:feedback || null})
+                await User.create({name,username,age,password:hash,email,phone_number,gender,city,district,blood_group,state,role:role || 'receiver',feedback:feedback || null})
                 return res.status(200).json({ success: 'User registration successful' })
             }
         })

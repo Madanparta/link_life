@@ -4,7 +4,6 @@ import { Route, Routes } from 'react-router-dom'
 import SignUp from '../screen/SignUp';
 import SignIn from '../screen/SignIn';
 import Profile from '../screen/Profile';
-import DashBord from './DashBord';
 import EditUser from '../screen/EditUser';
 import About from '../screen/About';
 import Feedback from '../screen/Feedback';
@@ -27,7 +26,6 @@ const Main = () => {
 
 
       <Route path='/users' element={<Users/>}/>
-      <Route path='/users/nav' element={<DashBord />}/>
 
       <Route path='/users/donor' element={<Donor/>}/>
       <Route path='/users/bloodBanker' element={<BloodBank/>}/>

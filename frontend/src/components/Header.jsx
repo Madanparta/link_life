@@ -17,7 +17,7 @@ const Header = () => {
   const onLogout = () => {
     if(token){
       localStorage.removeItem("user")
-      navigator('/')
+      window.location.assign('/')
     }
   }
 

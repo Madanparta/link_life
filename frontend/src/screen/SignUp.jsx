@@ -38,12 +38,12 @@ const SignUp = () => {
         initialValues:initialValues,
         validationSchema:signupValidation,
         onSubmit: async(values,action)=>{
-            console.log(values)
             try {
                 const req = await axios.post(`${BACKEND_API}/api/signup`,values)
 
                 if(req.status === 200){
                     toast.success("successfully createdd")
+                    action.resetForm()
                     navigation('/')
                 }
 

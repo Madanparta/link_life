@@ -1,8 +1,9 @@
 import { useFormik } from "formik";
 import { IoArrowUndo } from "react-icons/io5";
-import { Link,useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { bloodBankInputDataValidation } from "../schema";
 import { BACKEND_API, token } from "../utils/credentials";
+import toast from "react-hot-toast";
 
 const initialValues = {
   bloodGroup:'',
@@ -11,7 +12,6 @@ const initialValues = {
 }
 
 const BloodBank = () => {
-  const navigation = useNavigate()
 
   const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
     initialValues:initialValues,
@@ -21,15 +21,14 @@ const BloodBank = () => {
       try {
         const req = await fetch(`${BACKEND_API}/dashBord/bloodBanker`,{method:'POST',headers:{'Content-Type':'application/json','x-access-token':token},body:JSON.stringify(values),})
         const data = await req.json();
-        console.log(data);
+        // console.log(data);
+
         if(data){
-          alert('successfully added')
           action.resetForm()
-          navigation('/users');
+          toast.success('succesfully added')
         }
       } catch (error) {
-        console.error('Error during BloodBank:', error);
-        alert('Error during BloodBank:', error);
+        toast('Error during BloodBank:', error);
       }
     }
   });
