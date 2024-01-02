@@ -15,8 +15,7 @@ const initialValues = {
 }
 
 const Donor = () => {
-    const navigation = useNavigate()
-    const {spinner,setSpinner}=useState(false);
+    const navigation = useNavigate();
 
     const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
         initialValues:initialValues,
@@ -30,19 +29,14 @@ const Donor = () => {
                 if(data){
                     toast.success("successfully added.")
                     navigation('/users')
-                    setSpinner(true)
                     action.resetForm()
                 }
 
             } catch (error) {
                 toast.error('Error during Donor:', error);
-                setSpinner(false)
             }
         }
     });
-    
-
-    if(!spinner){<Spinner/>}
   return (
     <section className='w-full h-full flex justify-center items-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r'>
         <section className='h-[86.3vh] w-[80%] m-auto mt-[8vh] flex justify-center relative'>

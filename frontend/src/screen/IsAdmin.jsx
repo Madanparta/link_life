@@ -2,15 +2,13 @@ import React, { useEffect, useState } from 'react'
 import IsAdminDashbord from './IsAdminDashbord'
 import { BACKEND_API, token } from '../utils/credentials';
 import AdminPop from './AdminPop';
-import Spinner from './Spinner';
+import toast from 'react-hot-toast';
 
 const IsAdmin = ({users,filter}) => {
   const [donor,setDoner]=useState([]);
   const [bloodbanker,setBloodbanker]=useState([]);
   const [popshow,setPopshow]=useState(false)
   const [userInfo,setUserInfo]=useState(null);
-
-  const {spinner,setSpinner}=useState(false)
 
 
   const donerEndPoin = `${BACKEND_API}/api/donor`
@@ -28,7 +26,7 @@ const IsAdmin = ({users,filter}) => {
       const data = await response.json();
       return data;
     } catch (error) {
-      console.error('Error fetching data:', error);
+      toast.error('Error fetching data:', error);
     }
   };
 
@@ -42,10 +40,8 @@ const IsAdmin = ({users,filter}) => {
 
         setDoner(donorResult.data);
         setBloodbanker(bloodbankerResult.data);
-        setSpinner(true)
       } catch (error) {
-        console.error('Error fetching both data:', error);
-        setSpinner(false);
+        toast.error('Error fetching both data:', error);
       }
     }
 
@@ -54,22 +50,20 @@ const IsAdmin = ({users,filter}) => {
 
   // console.log(donor)
   // console.log(bloodbanker)
-
-  if(!spinner){<Spinner/>}
   return (
     <div className='w-full h-full border bg-white relative'>
       <table className='w-full h-full'>
         <thead>
             <tr className="w-full h-full sticky md:top-[16.5rem] left-0 bg-white shadow">
-                <th className="border py-0.5 w-0.5/12 text-center">SL NO</th>
+                <th className="border py-0.5 w-1/12 text-center">SL NO</th>
                 <th className="border py-0.5 w-2/12">Username</th>
-                <th className="border py-0.5 w-0.5/12">Role</th>
-                <th className="border py-0.5 w-1/12">Donet Blood(ml)</th>
-                <th className="border py-0.5 w-2/12">Donet Date</th>
-                <th className="border py-0.5 w-1/12">City</th>
+                <th className="border py-0.5 w-1/12">Role</th>
+                {/* <th className="border py-0.5 w-1/12">Donet Blood(ml)</th>
+                <th className="border py-0.5 w-2/12">Donet Date</th> */}
+                <th className="border py-0.5 w-2/12">City</th>
                 <th className="border py-0.5 w-2/12">District</th>
                 <th className="border py-0.5 w-2/12">State</th>
-                <th className="border py-0.5 w-1/12">Status</th>
+                <th className="border py-0.5 w-2/12">Status</th>
             </tr>
         </thead>
 

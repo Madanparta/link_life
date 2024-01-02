@@ -14,7 +14,6 @@ const initialValues = {
 }
 
 const BloodBank = () => {
-  const {spinner,setSpinner}=useState(false);
 
   const {errors,touched,handleBlur,handleChange,handleSubmit,values} = useFormik({
     initialValues:initialValues,
@@ -29,16 +28,12 @@ const BloodBank = () => {
         if(data){
           action.resetForm()
           toast.success('succesfully added')
-          setSpinner(true);
         }
       } catch (error) {
         toast('Error during BloodBank:', error);
-        setSpinner(false);
       }
     }
   });
-
-  if(!spinner){<Spinner/>}
   return (
     <section className="w-full h-full flex justify-center items-center bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r">
       <section className="h-[86.3vh] w-[80%] m-auto mt-[8vh] flex justify-center relative">

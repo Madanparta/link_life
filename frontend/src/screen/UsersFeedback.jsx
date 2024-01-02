@@ -15,7 +15,6 @@ const initialValues = {
 const UsersFeedback = ({userProfileHandler,selectItem}) => {
 
     const {phone_number,username,_id,role} = selectItem;
-    const {spinner,setSpinner}=useState(false)
 
     const {handleBlur,handleChange,handleSubmit,values} = useFormik({
         initialValues:initialValues,
@@ -29,19 +28,15 @@ const UsersFeedback = ({userProfileHandler,selectItem}) => {
                 const data = await req.json();
                 if(data){
                     window.location.assign('/users')
-                    setSpinner(true)
                     toast.success("successfullyu added feedback")
                     action.resetForm()
                 }
 
             } catch (error) {
                 toast.error('Error during feedback:', error);
-                setSpinner(false);
             }
         }
     });
-
-    if(!spinner){<spinner/>}
   return (
     <>
         <div className="w-full flex justify-end text-end px-5"><RxCross2 onClick={userProfileHandler} className="text-2xl cursor-pointer font-bold"/></div>

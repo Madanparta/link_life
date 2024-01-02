@@ -10,8 +10,6 @@ const AdminPop = ({setPopshow,userInfo,donor,bloodbanker}) => {
     const [bankerData,setBankerData]=useState('');
     const [approval,setApproval]=useState(false);
 
-    const [spinner,setSpinner]=useState(false);
-
     const {name,age,blood_group,city,district,email,state,phone_number,role,_id,approved} = userInfo;
     const {donationQuantity,donationDate} = donorData;
     const {description,quantityAvailable,updatedAt,bloodGroup} = bankerData;
@@ -59,16 +57,12 @@ const AdminPop = ({setPopshow,userInfo,donor,bloodbanker}) => {
                 toast.success('succesfully updated..')
                 setTimeout(() => {
                     window.location.assign('/users')
-                    setSpinner(true);
                 }, 1000);
             }
         } catch (error) {
             toast.error('somthing went to wrong in approval:', error);
-            setSpinner(false);
         }
     }
-
-    if(!spinner){<Spinner/>}
   return (
     <>
       <div className="w-full flex justify-end text-end px-5"><RxCross2 onClick={()=>setPopshow(false)} className="text-2xl cursor-pointer font-bold"/></div>

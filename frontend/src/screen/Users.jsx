@@ -8,7 +8,6 @@ import DonetCompo from "../components/DonetCompo.jsx";
 import { userData } from "../utils/credentials";
 import IsAdmin from "./IsAdmin.jsx";
 import toast from "react-hot-toast";
-import Spinner from "./Spinner.jsx";
 
 
 const Users = () => {
@@ -71,7 +70,6 @@ const Users = () => {
 
   return (
     <>
-    {!users && <Spinner/>}
       <section className="w-full overflow-hidden h-fit bg-[conic-gradient(at_top,_var(--tw-gradient-stops))] from-gray-900 to-gray-600 bg-gradient-to-r sticky md:top-[3.3rem] left-0">
         <section className="w-full h-fit pt-20 relative">
 

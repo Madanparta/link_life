@@ -35,10 +35,10 @@ const Header = () => {
         <HiMenuAlt3 className="text-3xl cursor-pointer"/>
         <div className={`absolute top-10 delay-200 ease-in-out -right-5 w-[100vw]  h-[94vh] bg-[#f3ececf5] ${navMobile?"hidden":'block'} flex justify-center items-center flex-col gap-5`}>
           {token && (<><NavLink to='about' className='capitalize border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>About</NavLink>
-          <NavLink to='feedback' className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Feedback</NavLink>
+          <NavLink to='/users' className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Feedback</NavLink>
           <NavLink to='/api/profile' className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Change Password</NavLink>
           <p onClick={onLogout} className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Logout</p>
-          <NavLink to="bloodDonationFacts" className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Blood donation facts</NavLink>
+          <NavLink to="/users" className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Blood donation facts</NavLink>
           <NavLink title={`${userData.username}`} to={'/api/profile'} className='capitalize  border-b-2 border-transparent cursor-pointer px-2 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-green-600 flex justify-center items-center text-black'><FaUser/></NavLink></>)}
         </div>
       </nav>
@@ -48,10 +48,10 @@ const Header = () => {
         {!token && <Link to={'/'} className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>login</Link>}
 
         {token && (<><NavLink to='about' className='capitalize border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>About</NavLink>
-        <NavLink to='feedback' className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Feedback</NavLink>
+        <NavLink to='/users' className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Feedback</NavLink>
         <NavLink to='/api/profile' className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Change Password</NavLink>
         <p onClick={onLogout} className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Logout</p>
-        <NavLink to="bloodDonationFacts" className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Blood donation facts</NavLink>
+        <NavLink to="/users" className='capitalize  border-b-2 border-transparent cursor-pointer px-2 text-red-400 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-red-600'>Blood donation facts</NavLink>
         <NavLink title={`${userData.username}`} to={'/api/profile'} className='capitalize  border-b-2 border-transparent cursor-pointer px-2 font-semibold ease-in-out duration-200 hover:text-red-500 active:text-green-600 flex justify-center items-center text-black'><FaUser/></NavLink></>)}
       </nav>
     </header>
